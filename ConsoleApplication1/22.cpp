@@ -1,47 +1,49 @@
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <cstring>
+#include <cmath>
 using namespace std;
-class build
+class person;
+class dog
 {
 public:
-	
-	void get_info() {
-		cout << "Type: " << type << ". Year: " << year << endl;
-	}
-	void set_data(int y, string t) {
-		year = y;
-		type = t;
-	}
-	build();
-	~build();
-
+	friend class person;
 private:
-	int year;
-	string type;
+	int health = 100;
 };
 
-build::build()
+class person
 {
-}
+public:
+	void damage(dog& dog) {
+		dog.health -= 20;
+		cout << "Health of animal: " << dog.health << endl;
+	}
+	void heal(dog& dog) {
+		dog.health += 10;
+		cout << "Health of animal: " << dog.health << endl;
+	}
+	void kill(dog& dog) {
+		dog.health = 0;
+		cout << "Health of animal: " << dog.health << endl;
+	}
 
-build::~build()
-{
-}
+private:
+
+};
+
 
 int main() {
 	setlocale(LC_ALL, "RU");
 
-	build school;
-	//school.type = "Школа";
-	//school.year = 2000;
-	school.set_data(2000,"Школа");
-	school.get_info();
-
-	build house;
-	//house.type = "Дом";
-	//house.year = 2010;
-	house.set_data(2010, "Дом");
-	house.get_info();
-
+	dog skuby;
+	person alex;
+	alex.damage(skuby);
+	alex.damage(skuby);
+	alex.heal(skuby);
+	alex.heal(skuby);
+	alex.heal(skuby);
+	alex.kill(skuby);
 	return 0;
 }
